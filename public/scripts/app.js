@@ -39,14 +39,52 @@ sampleAlbums.push({
 
 $(document).ready(function() {
   console.log('app.js loaded!');
-});
+  sampleAlbums.forEach(renderAlbum);
 
 
 
+  $.ajax({
+    method: 'get',
+    url: '/api/albums',
+    success: onSuccess,
+    error: onError
+  });
+
+  function onSuccess(json){
+    console.log(json);
+    json.forEach(renderAlbum);
+  }
+
+  function onError(err){
+    console.log(err);
+  }
+
+});//doc.ready end
+
+//   $quotesList = $('#quotesTarget');
+//
+//   var source = $('#quotesTemplate').html();
+//   template = Handlebars.compile(source);
+//
+// function render() {
+//     $quotesList.empty();
+//     var quotesHtml = template({ quotes: allQuotes });
+//     $quotesList.append(quotesHtml);
+//   }
+
+//////////////////////
 
 
 // this function takes a single album and renders it to the page
 function renderAlbum(album) {
-  console.log('rendering album:', album);
-
+  // console.log('rendering album:', album);
+  var gettingHTML = $('#albumsTemplate').html();
+  var albumsTemplate = Handlebars.compile(gettingHTML);
+  var html = albumsTemplate(album);
+  $('#albums').append(html);
 }
+
+// function renderAlbum(album){
+//   console.log('rendering album: ', album);
+//
+// }
