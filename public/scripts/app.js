@@ -8,30 +8,30 @@
 
 /* hard-coded data! */
 var sampleAlbums = [];
-sampleAlbums.push({
-             artistName: 'Ladyhawke',
-             name: 'Ladyhawke',
-             releaseDate: '2008, November 18',
-             genres: [ 'new wave', 'indie rock', 'synth pop' ]
-           });
-sampleAlbums.push({
-             artistName: 'The Knife',
-             name: 'Silent Shout',
-             releaseDate: '2006, February 17',
-             genres: [ 'synth pop', 'electronica', 'experimental' ]
-           });
-sampleAlbums.push({
-             artistName: 'Juno Reactor',
-             name: 'Shango',
-             releaseDate: '2000, October 9',
-             genres: [ 'electronic', 'goa trance', 'tribal house' ]
-           });
-sampleAlbums.push({
-             artistName: 'Philip Wesley',
-             name: 'Dark Night of the Soul',
-             releaseDate: '2008, September 12',
-             genres: [ 'piano' ]
-           });
+// sampleAlbums.push({
+//              artistName: 'Ladyhawke',
+//              name: 'Ladyhawke',
+//              releaseDate: '2008, November 18',
+//              genres: [ 'new wave', 'indie rock', 'synth pop' ]
+//            });
+// sampleAlbums.push({
+//              artistName: 'The Knife',
+//              name: 'Silent Shout',
+//              releaseDate: '2006, February 17',
+//              genres: [ 'synth pop', 'electronica', 'experimental' ]
+//            });
+// sampleAlbums.push({
+//              artistName: 'Juno Reactor',
+//              name: 'Shango',
+//              releaseDate: '2000, October 9',
+//              genres: [ 'electronic', 'goa trance', 'tribal house' ]
+//            });
+// sampleAlbums.push({
+//              artistName: 'Philip Wesley',
+//              name: 'Dark Night of the Soul',
+//              releaseDate: '2008, September 12',
+//              genres: [ 'piano' ]
+//            });
 /* end of hard-coded data */
 
 
@@ -39,7 +39,7 @@ sampleAlbums.push({
 
 $(document).ready(function() {
   console.log('app.js loaded!');
-  sampleAlbums.forEach(renderAlbum);
+  // sampleAlbums.forEach(renderAlbum);
 
 
 
@@ -57,6 +57,29 @@ $(document).ready(function() {
 
   function onError(err){
     console.log(err);
+  }
+
+  $('#albumForm').on('submit', function(e){
+    e.preventDefault();
+    console.log(e);
+    console.log("this serialize ", $(this).serialize());
+    $.ajax({
+      method: 'POST',
+      url: '/api/albums',
+      data: $(this).serialize(),
+      success: albumPost,
+      error: albumPostError
+    });
+    $(this).trigger("reset");
+  });
+
+  function albumPost(json){
+    console.log("album post success ", json);
+    renderAlbum(json);
+  }
+
+  function albumPostError(err){
+    console.log("album post error ", err);
   }
 
 });//doc.ready end
