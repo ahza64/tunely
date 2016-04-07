@@ -37,6 +37,9 @@ var albums = [];
 // GET /api/albums
 function index(req, res) {
   db.Album.find(function(err, albumtaco){
+    if(err){
+      console.log("data in controller err ", err);
+    }
     // console.log("this is awesome stuff", albumtaco);
      res.json(albumtaco);
    });

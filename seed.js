@@ -31,8 +31,39 @@ var albumsList =[
   // put data here!
 ];
 
-db.Album.remove({}, function(err, albums){
+var sampleSongs = [];
 
+sampleSongs.push({ name: 'Swamped',
+                   trackNumber: 1
+});
+sampleSongs.push({ name: "Heaven's a Lie",
+                   trackNumber: 2
+});
+sampleSongs.push({ name: 'Daylight Dancer',
+                   trackNumber: 3
+});
+sampleSongs.push({ name: 'Humane',
+                   trackNumber: 4
+});
+sampleSongs.push({ name: 'Self Deception',
+                   trackNumber: 5
+});
+sampleSongs.push({ name: 'Aeon',
+                   trackNumber: 6
+});
+sampleSongs.push({ name: 'Tight Rope',
+                   trackNumber: 7
+});
+
+//adds songs to albums
+albumsList.forEach(function(album){
+  album.songs = sampleSongs;
+});
+
+
+//you don't need to add the new list to the old list
+db.Album.remove({}, function(err, albums){
+//creates the list to send as data
   db.Album.create(albumsList, function(err, albums){
     if (err) { return console.log('ERROR', err); }
     console.log("all albums:", albums);

@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <!-- BEGIN FORM SAMPLE -->
+<!-- BEGIN FORM SAMPLE -->
 
     <section id='album-form' class="container">
       <div class="row">
@@ -87,8 +87,8 @@
       </div>
     </section>
 
-    <!--   END FORM SAMPLE -->
-    
+<!--   END FORM SAMPLE -->
+
     <section class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -100,7 +100,7 @@
 
         <script id='albumsTemplate' type="text/x-handlebars-template">
           <!-- one album -->
-          <div class="row album">
+          <div class="row album" data-album-id={{_id}}>
 
 
 
@@ -136,6 +136,13 @@
                           <h4 class='inline-header'>Released date:</h4>
                           <span class='album-releaseDate'>{{releaseDate}}</span>
                         </li>
+                        <li class="list-group-item">
+                          <h4 class="inline-header">Songs:</h4>
+                          {{#each songs}}
+                          <span>&ndash;({{trackNumber}}) {{name}}, </span>
+                          {{/each}}
+                          <!-- <span>&ndash; {{#each songs}} ({{trackNumber}}) {{name}} &ndash;  {{/each}}</span> -->
+                        </li>
                       </ul>
                     </div>
 
@@ -143,6 +150,7 @@
                   <!-- end of album internal row -->
 
                   <div class='panel-footer'>
+                    <button class='btn btn-primary add-song'>Add Song</button>
                   </div>
 
                 </div>
